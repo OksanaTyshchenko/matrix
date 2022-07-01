@@ -1,9 +1,4 @@
-# React TypeScript Starter Pack
+# Test task 'Create a Matrix'
 
-To use this template click `Use this template`
-
-### Available Scripts
-
-`Deploy` - available to deploy your application to gh-pages
-
-`SCSS Preprocessor` - available to write your styles with modern style language
+1. Technology stack: HTML, SCSS, BEM, React, Type Script, Redux.
+2. Click the link to see [DEMO] (https://oksanatyshchenko.github.io/matrix).
