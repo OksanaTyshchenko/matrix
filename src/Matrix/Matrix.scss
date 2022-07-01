@@ -1,0 +1,74 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  margin: 0 auto;
+  margin-top: 50px;
+  overflow: auto;
+}
+
+.Matrix {
+  width: max-content;
+
+  &__selected {
+    line-height: 50px;
+    background-color: #3488ce;
+    color: white;
+    text-align: center !important;
+  }
+
+  &__sum {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: #fff;
+    border: transparent;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__buttonPercent {
+    align-items: flex-end;
+  }
+
+  &__delete {
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__relatedButton {
+    background-color: #91b1cc;
+  }
+
+  &__selectedButton {
+    background: yellow;
+  }
+
+  &__part {
+    background-color: #91b1cc;
+    width: 10px;
+  }
+}
+
+table td {
+  border: 1px solid black;
+}
+
+td {
+  height: 60px;
+  width: 60px;
+}
+

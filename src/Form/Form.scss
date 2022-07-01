@@ -1,0 +1,17 @@
+.Form {
+  width: max-content;
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__input {
+    margin-left: 10px;
+  }
+
+  &__button {
+    width: 150px;
+    margin: 0 auto;
+  }
+}
