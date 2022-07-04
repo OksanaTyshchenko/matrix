@@ -10,6 +10,7 @@ export const Matrix = () => {
   const xArr = useSelector(selectors.getXArr);
   const [selectedCell, setSelectedCell] = useState<null | X>(null);
   const [selectedRow, setSelectedRow] = useState<null | number>(null);
+  const countClosest = useSelector(selectors.getCountClosest);
   const dispatch = useDispatch();
 
   const avg = Array.from({ length: xArr[0]?.length }, (_: undefined, index: number) => {
@@ -28,7 +29,6 @@ export const Matrix = () => {
 
   const handleHoverCell = (cell: X) => {
     setSelectedCell(cell);
-    setSelectedRow(null);
   };
 
   const handleHoverSum = (rowIndex: number) => {
@@ -45,9 +45,30 @@ export const Matrix = () => {
     dispatch(actions.addRow(newRow));
   };
 
+  const target = selectedCell?.amount;
+  const joinArr = xArr.flat();
+  const sortedArr = target ? joinArr
+    .sort((a, b) => (Math.abs(a.amount - target) - Math.abs(b.amount - target))) : null;
+  const closest = sortedArr?.slice(1, countClosest + 1);
+
+  const isCellClosest = (cell: X): boolean => {
+    if (!closest) {
+      return false;
+    }
+
+    const searchEl = closest.find(({ amount }) => amount === cell.amount);
+
+    return !!searchEl;
+  };
+
   return (
     <div className="wrapper">
-      <table className="Matrix">
+      <table
+        className="Matrix"
+        onMouseLeave={() => {
+          setSelectedCell(null);
+        }}
+      >
         <tbody>
           {xArr.map((row, rowIndex) => (
             <tr key={uuidv4()}>
@@ -69,13 +90,8 @@ export const Matrix = () => {
                     }}
                     onMouseOver={() => handleHoverCell(cell)}
                     onFocus={() => handleHoverCell(cell)}
-                    onMouseLeave={() => setSelectedCell(null)}
                     className={classNames('Matrix__button', {
-                      Matrix__relatedButton: selectedCell && cell.id !== selectedCell.id
-                      && ((selectedCell.amount - cell.amount <= 100
-                        && selectedCell.amount - cell.amount >= 0)
-                        || (cell.amount - selectedCell.amount <= 100
-                        && cell.amount - selectedCell.amount >= 0)),
+                      Matrix__relatedButton: isCellClosest(cell),
                       Matrix__selectedButton: cell.id === selectedCell?.id,
                       Matrix__buttonPercent: selectedRow === rowIndex,
                     })}
@@ -108,7 +124,7 @@ export const Matrix = () => {
         </tbody>
       </table>
       {xArr.length > 0
-      && <button type="button" className="button is-info" onClick={addRow}>Add row</button>}
+      && <button type="button" className="button is-info Matrix__addButton" onClick={addRow}>Add row</button>}
     </div>
   );
 };

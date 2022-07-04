@@ -6,6 +6,7 @@ const UPDATE_XARR = 'UPDATE_XARR';
 const ADD_XARR = 'ADD_XARR';
 const DELETE_ROW = 'DELETE_ROW';
 const ADD_ROW = 'ADD_ROW';
+const ADD_COUNT_CLOSEST = 'ADD_COUNT_CLOSEST';
 
 export const actions = {
   addXArr: (xArr: X[][]) => ({
@@ -25,18 +26,25 @@ export const actions = {
     type: ADD_ROW,
     row,
   }),
+  addClosest: (count: number) => ({
+    type: ADD_COUNT_CLOSEST,
+    count,
+  }),
 };
 
 export const selectors = {
   getXArr: (state: RootState) => state.xArr,
+  getCountClosest: (state: RootState) => state.countClosest,
 };
 
 type RootState = {
   xArr: X[][];
+  countClosest: number;
 };
 
 const initialState: RootState = {
   xArr: [],
+  countClosest: 0,
 };
 
 const rootReducer = (state = initialState, action: AnyAction) => {
@@ -73,6 +81,13 @@ const rootReducer = (state = initialState, action: AnyAction) => {
       return {
         ...state,
         xArr: [...state.xArr, action.row],
+      };
+    }
+
+    case ADD_COUNT_CLOSEST: {
+      return {
+        ...state,
+        countClosest: action.count,
       };
     }
 
